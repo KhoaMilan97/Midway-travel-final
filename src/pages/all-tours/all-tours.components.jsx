@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
 import { createStructuredSelector } from "reselect";
 import { Link } from "react-router-dom";
@@ -10,112 +10,104 @@ import { selectAllType } from "../../redux/type-tour/type-tour.selector";
 import BannerHeader from "../../shared/banner-header.components";
 import TourItems from "../../components/tour-items/tour-items.components";
 
-class AllTours extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      currentPage: 1,
-      toursPerPages: 5,
-    };
-  }
+const AllTours = ({ title, tours, typeTours }) => {
+  const [currentPage, setCurrentPage] = useState(1);
+  const [toursPerPages] = useState(5);
 
-  componentDidMount() {
-    document.title = this.props.title;
-  }
+  useEffect(() => {
+    document.title = title;
+  }, [title]);
 
-  handlePageChange(pageNumber) {
-    this.setState({ currentPage: pageNumber });
+  const handlePageChange = (pageNumber) => {
+    console.log(pageNumber);
+    setCurrentPage(pageNumber);
     window.scrollTo(0, 0);
-  }
+  };
 
-  render() {
-    const { tours, typeTours } = this.props;
-    const { currentPage, toursPerPages } = this.state;
-    // Get Current Tours
-    const indexOfLastTours = currentPage * toursPerPages; // 1 * 5 = 5 //
-    const indexOfFirstTours = indexOfLastTours - toursPerPages; // 5 - 5 = 0 //
-    const currentTours = tours.slice(indexOfFirstTours, indexOfLastTours); // (0,5)
+  // Get Current Tours
+  const indexOfLastTours = currentPage * toursPerPages; // 1 * 5 = 5 //
+  const indexOfFirstTours = indexOfLastTours - toursPerPages; // 5 - 5 = 0 //
+  const currentTours = tours.slice(indexOfFirstTours, indexOfLastTours); // (0,5)
 
-    return (
-      <React.Fragment>
-        <BannerHeader
-          title="All tours"
-          content="Ridiculus sociosqu cursus neque cursus curae ante scelerisque vehicula."
-        />
-        <main>
-          <div id="position">
-            <div className="container">
-              <ul>
-                <li>
-                  <Link to="/">Trang chủ</Link>
-                </li>
-                <li>Tours</li>
-              </ul>
-            </div>
+  return (
+    <React.Fragment>
+      <BannerHeader
+        title="All tours"
+        content="Ridiculus sociosqu cursus neque cursus curae ante scelerisque vehicula."
+      />
+      <main>
+        <div id="position">
+          <div className="container">
+            <ul>
+              <li>
+                <Link to="/">Trang chủ</Link>
+              </li>
+              <li>Tours</li>
+            </ul>
           </div>
+        </div>
 
-          <div className="container margin_60">
-            <div className="row">
-              <aside className="col-lg-3">
-                <div className="box_style_cat">
-                  <ul id="cat_nav">
-                    <li>
-                      <Link to="/tours">
+        <div className="container margin_60">
+          <div className="row">
+            <aside className="col-lg-3">
+              <div className="box_style_cat">
+                <ul id="cat_nav">
+                  <li>
+                    <Link to="/tours">
+                      <i className="icon_set_1_icon-51" />
+                      All tours
+                    </Link>
+                  </li>
+                  {typeTours.map((item) => (
+                    <li key={item.id}>
+                      <Link to={`/tours/${item.type_link}/${item.id}`}>
                         <i className="icon_set_1_icon-51" />
-                        All tours
+                        {item.name_type}
                       </Link>
                     </li>
-                    {typeTours.map((item) => (
-                      <li key={item.id}>
-                        <Link to={`/tours/${item.type_link}/${item.id}`}>
-                          <i className="icon_set_1_icon-51" />
-                          {item.name_type}
-                        </Link>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-
-                <div className="box_style_2">
-                  <i className="icon_set_1_icon-57" />
-                  <h4>
-                    Need <span>Help?</span>
-                  </h4>
-                  <a href="tel://004542344599" className="phone">
-                    +45 423 445 99
-                  </a>
-                  <small>Monday to Friday 9.00am - 7.30pm</small>
-                </div>
-              </aside>
-              {/*End aside */}
-              <div className="col-lg-9">
-                {currentTours.map((tour) => (
-                  <TourItems key={tour.id_tour} {...tour} />
-                ))}
-
-                <hr />
-                <Pagination
-                  activePage={currentPage}
-                  itemsCountPerPage={toursPerPages}
-                  totalItemsCount={tours.length}
-                  pageRangeDisplayed={toursPerPages}
-                  itemClass="page-item"
-                  linkClass="page-link"
-                  onChange={this.handlePageChange.bind(this)}
-                  innerClass="pagination justify-content-center"
-                />
-                {/* end pagination*/}
+                  ))}
+                </ul>
               </div>
-              {/* End col lg-9 */}
+
+              <div className="box_style_2">
+                <i className="icon_set_1_icon-57" />
+                <h4>
+                  Need <span>Help?</span>
+                </h4>
+                <a href="tel://004542344599" className="phone">
+                  +45 423 445 99
+                </a>
+                <small>Monday to Friday 9.00am - 7.30pm</small>
+              </div>
+            </aside>
+            {/*End aside */}
+            <div className="col-lg-9">
+              {currentTours.map((tour) => (
+                <TourItems key={tour.id_tour} {...tour} />
+              ))}
+
+              <hr />
+              <Pagination
+                activePage={currentPage}
+                itemsCountPerPage={toursPerPages}
+                totalItemsCount={tours.length}
+                pageRangeDisplayed={toursPerPages}
+                itemClass="page-item"
+                linkClass="page-link"
+                onChange={handlePageChange}
+                innerClass="pagination justify-content-center"
+              />
+              {/* end pagination*/}
             </div>
-            {/* End row */}
+            {/* End col lg-9 */}
           </div>
-          {/* End container */}
-        </main>
-      </React.Fragment>
-    );
-  }
-}
+          {/* End row */}
+        </div>
+        {/* End container */}
+      </main>
+    </React.Fragment>
+  );
+};
 
 const mapStateToProps = createStructuredSelector({
   tours: selectAllTours,

@@ -3,10 +3,10 @@ import { connect } from "react-redux";
 import { createStructuredSelector } from "reselect";
 import { Link } from "react-router-dom";
 
-import Carousel from "../../components/carousel-home/carousel-home.components";
 import TopTours from "../../components/top-tour/top-tour.components";
 import PopularTours from "../../components/popular-tour/popular-tours.components";
 import WithSpinner from "../../components/with-spinner/with-spinner.components";
+import SearchPages from "../../components/search-pages/search-pages.components";
 
 import { getTourStart } from "../../redux/tour/tour.action";
 import { selectTourLoading } from "../../redux/tour/tour.selector";
@@ -27,7 +27,7 @@ class HomePages extends React.Component {
     return (
       <div>
         <main>
-          <Carousel />
+          <SearchPages />
           <div className="white_bg">
             <div className="container margin_60">
               <div className="row small-gutters categories_grid">

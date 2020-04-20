@@ -30,89 +30,83 @@ const ForgotPassword = lazy(() =>
   import("./pages/forgot-password/forget-password.components")
 );
 
-class App extends React.Component {
-  render() {
-    const { currentUser } = this.props;
-    return (
-      <div className="App">
-        <Header currentUser={currentUser} />
-        <Suspense fallback={<Spinner />}>
-          <ScrollToTop />
-          <Switch>
-            <Route
-              exact
-              path="/about"
-              render={() => <About title="Midway - Giới thiệu" />}
-            />
-            <Route
-              exact
-              path="/sign-in"
-              render={() =>
-                currentUser ? (
-                  <Redirect to="/" />
-                ) : (
-                  <SignIn title="Midway - Đăng nhập" />
-                )
-              }
-            />
-            <Route
-              exact
-              path="/sign-up"
-              render={() =>
-                currentUser ? (
-                  <Redirect to="/" />
-                ) : (
-                  <SignUp title="Midway - Đăng kí" />
-                )
-              }
-            />
+const App = ({ currentUser }) => (
+  <div className="App">
+    <Header currentUser={currentUser} />
+    <Suspense fallback={<Spinner />}>
+      <ScrollToTop />
+      <Switch>
+        <Route
+          exact
+          path="/about"
+          render={() => <About title="Midway - Giới thiệu" />}
+        />
+        <Route
+          exact
+          path="/sign-in"
+          render={() =>
+            currentUser ? (
+              <Redirect to="/" />
+            ) : (
+              <SignIn title="Midway - Đăng nhập" />
+            )
+          }
+        />
+        <Route
+          exact
+          path="/sign-up"
+          render={() =>
+            currentUser ? (
+              <Redirect to="/" />
+            ) : (
+              <SignUp title="Midway - Đăng kí" />
+            )
+          }
+        />
 
-            <Route
-              exact
-              path="/checkout"
-              render={() =>
-                !currentUser ? (
-                  <Redirect to="/sign-in" />
-                ) : (
-                  <CheckOutPages title="Midway - Thanh toán" />
-                )
-              }
-            />
-            <Route path="/tours" render={(props) => <TourPages {...props} />} />
-            <Route
-              exact
-              path="/confirm"
-              render={() => (
-                <Confirmation title="Midway - xác nhận thanh toán" />
-              )}
-            />
-            <Route
-              exact
-              path="/forgot-password"
-              render={() => <ForgotPassword title="Midway - Quên mật khẩu" />}
-            />
-            <Route
-              exact
-              path="/contact"
-              render={() => <ContactPages title="Midway - Liên hệ" />}
-            />
-            <Route
-              exact
-              path="/"
-              render={() => <HomePages title="Midway - Travel" />}
-            />
-            <Route
-              path="*"
-              render={() => <NotFound title="Midway - không tìm thấy trang" />}
-            />
-          </Switch>
-        </Suspense>
-        <Scroll />
-        <Footer />
-      </div>
-    );
-  }
-}
+        <Route
+          exact
+          path="/checkout"
+          render={() =>
+            !currentUser ? (
+              <Redirect to="/sign-in" />
+            ) : (
+              <CheckOutPages title="Midway - Thanh toán" />
+            )
+          }
+        />
+        <Route path="/tours" render={(props) => <TourPages {...props} />} />
+        <Route
+          exact
+          path="/confirm"
+          render={() => <Confirmation title="Midway - xác nhận thanh toán" />}
+        />
+        <Route
+          exact
+          path="/forgot-password"
+          render={() => <ForgotPassword title="Midway - Quên mật khẩu" />}
+        />
+        <Route
+          exact
+          path="/contact"
+          render={() => <ContactPages title="Midway - Liên hệ" />}
+        />
+
+        <Route
+          exact
+          path="/"
+          render={() => <HomePages title="Midway - Travel" />}
+        />
+        <Route
+          path="*"
+          render={() => <NotFound title="Midway - không tìm thấy trang" />}
+        />
+      </Switch>
+    </Suspense>
+    <Scroll />
+    <Footer />
+  </div>
+);
 
 const mapStateToProps = createStructuredSelector({
   currentUser: selectCurrentUser,

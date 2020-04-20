@@ -1,0 +1,26 @@
+.box {
+  & select {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    -o-appearance: none;
+    appearance: none;
+    position: relative;
+    width: 100%;
+    background: rgb(255, 255, 255);
+    border: solid 1px #ccc;
+    height: 40px;
+    font-weight: normal !important;
+    border-radius: 3px !important;
+    background: url(/img/select.png) no-repeat 95% center;
+    padding-left: 10px;
+    cursor: pointer;
+  }
+}
+
+.react-datepicker-wrapper {
+  display: block;
+}
+
+#search_container {
+  background: #4d536d url(/img/slides/slide_home_6.jpg) no-repeat center top !important;
+}
