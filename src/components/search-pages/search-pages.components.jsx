@@ -1,27 +1,53 @@
 import React, { useState } from "react";
 import DatePicker from "react-datepicker";
+import Select from "react-select";
+
+import { dataDestination } from "./data-search";
 
 import "react-datepicker/dist/react-datepicker.css";
 import "./search-pages.styles.scss";
 
 const SearchPages = () => {
   const [searchState, setSearchState] = useState({
-    departure: "Ha Noi",
-    destination: "Da Lat",
+    departure: null,
+    destination: null,
     date: new Date(),
-    price: "",
+    price: null,
+  });
+
+  const [selectState] = useState({
+    isClearable: true,
   });
 
   const { departure, destination, date, price } = searchState;
+  const { isClearable } = selectState;
 
-  const handleChange = (event) => {
-    const { name, value } = event.target;
+  const optionsDeparture = [
+    { value: "hanoi", label: "Hà Nội" },
+    { value: "hochiminh", label: "Hồ Chí Minh" },
+  ];
+
+  const optionsDestination = dataDestination.map((item) => {
+    return { value: item.value, label: item.display };
+  });
+
+  const optionsPrice = [
+    { value: "2", label: "Dưới 2tr" },
+    { value: "3", label: "Từ 2tr - 3tr" },
+    { value: "5", label: "Từ 3tr - 5tr" },
+    { value: "10", label: "Từ 5tr - 10tr" },
+    { value: "20", label: "Từ 10tr - 20tr" },
+    { value: "50", label: "Từ 20tr - 50tr" },
+    { value: "51", label: "Trên 50tr" },
+  ];
+
+  const handleSelectChange = (name) => (value) => {
     setSearchState({ ...searchState, [name]: value });
   };
 
   const onDateChange = (date) => setSearchState({ ...searchState, date });
 
-  const handleSubmit = () => {
+  const handleSearch = () => {
     alert("Tìm kiếm");
   };
 
@@ -37,14 +63,13 @@ const SearchPages = () => {
                   <div className="form-group">
                     <label>Nơi khởi hành</label>
                     <div className="box">
-                      <select
+                      <Select
                         name="departure"
                         value={departure}
-                        onChange={handleChange}
-                      >
-                        <option value="Ha Noi">Hà Nội</option>
-                        <option value="Ho Chi Minh">Hồ Chí Minh</option>
-                      </select>
+                        onChange={handleSelectChange("departure")}
+                        options={optionsDeparture}
+                        isClearable={isClearable}
+                      />
                     </div>
                   </div>
                 </div>
@@ -52,15 +77,13 @@ const SearchPages = () => {
                   <div className="form-group">
                     <label>Điểm đến</label>
                     <div className="box">
-                      <select
+                      <Select
                         name="destination"
                         value={destination}
-                        onChange={handleChange}
-                      >
-                        <option value="Da lat">Đà Lạt</option>
-                        <option value="Can tho">Cần Thơ</option>
-                        <option value="Da nang">Đà Nẵng</option>
-                      </select>
+                        onChange={handleSelectChange("destination")}
+                        options={optionsDestination}
+                        isClearable={isClearable}
+                      />
                     </div>
                   </div>
                 </div>
@@ -84,17 +107,20 @@ const SearchPages = () => {
                   <div className="form-group">
                     <label>Chọn giá tour</label>
                     <div className="box">
-                      <select name="price">
-                        <option defaultValue={0}>Hà Nội</option>
-                        <option defaultValue={1}>Hồ Chí Minh</option>
-                      </select>
+                      <Select
+                        name="price"
+                        options={optionsPrice}
+                        onChange={handleSelectChange("price")}
+                        value={price}
+                        isClearable={isClearable}
+                      />
                     </div>
                   </div>
                 </div>
               </div>
               {/* End row */}
               <hr />
-              <button className="btn_1 green" onClick={handleSubmit}>
+              <button className="btn_1 green" onClick={handleSearch}>
                 <i className="icon-search" />
                 Tìm kiếm
               </button>
