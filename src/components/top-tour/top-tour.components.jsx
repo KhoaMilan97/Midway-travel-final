@@ -6,16 +6,11 @@ import TourSlider from "../tour-slider/tour-slider.componnets";
 
 import { selectHotTours } from "../../redux/tour/tour.selector";
 
-class TopTour extends React.Component {
-  render() {
-    const { tours } = this.props;
-    return (
-      <React.Fragment>
-        {tours.length && <TourSlider tours={tours} status="Hot" />}
-      </React.Fragment>
-    );
-  }
-}
+const TopTour = ({ tours }) => (
+  <React.Fragment>
+    {tours.length && <TourSlider tours={tours} status="Hot" />}
+  </React.Fragment>
+);
 
 const mapStateToProps = createStructuredSelector({
   tours: selectHotTours,

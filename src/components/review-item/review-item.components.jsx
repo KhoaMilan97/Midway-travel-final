@@ -23,7 +23,7 @@ const ReviewItem = ({ username, comment, date, point }) => {
   };
   return (
     <div className="review_strip_single">
-      <small> - {moment(date).fromNow()} -</small>
+      <small> - {date ? moment(date).fromNow() : null} -</small>
       <h4 style={{ marginLeft: 0 }}>{username}</h4>
       <p>{`"${comment}"`}</p>
       <div className="rating">{renderRating(point)}</div>

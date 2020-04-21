@@ -168,13 +168,6 @@ class Header extends React.Component {
                   </ul>
                 </div>
                 {/* End main-menu */}
-                <ul id="top_tools">
-                  <li>
-                    <Link to="/" className="search-overlay-menu-btn">
-                      <i className="icon_search" />
-                    </Link>
-                  </li>
-                </ul>
               </nav>
             </div>
           </div>
