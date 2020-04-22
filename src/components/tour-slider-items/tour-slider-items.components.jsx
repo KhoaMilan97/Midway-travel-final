@@ -1,50 +1,11 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { Link } from "react-router-dom";
-
-import API from "../../api/baseURL";
 
 import { linkImage } from "../../util/linkImage";
 
+import useRating from "../../util/useRating";
+
 const TourSliderItems = ({ status, id_tour, image, tour_price, tour_name }) => {
-  const [reviewState, setReviewState] = useState("");
-
-  useEffect(() => {
-    async function fetchData() {
-      const response = await API.get(`review/${id_tour}`);
-      const data = response.data;
-      setReviewState(data);
-    }
-    fetchData();
-  }, []);
-
-  const renderRating = () => {
-    if (reviewState) {
-      const average = reviewState.reduce((accumulator, item) => {
-        return accumulator + item.point;
-      }, 0);
-
-      if (average > 0) {
-        const point = average / reviewState.length;
-        let className = [
-          { class: "icon-smile" },
-          { class: "icon-smile" },
-          { class: "icon-smile" },
-          { class: "icon-smile" },
-          { class: "icon-smile" },
-        ];
-        for (let x = 0; x < point; x++) {
-          className[x].class = "icon-smile voted";
-        }
-
-        return className.map((item, index) => (
-          <i className={item.class} key={index} />
-        ));
-      } else {
-        return null;
-      }
-    }
-  };
-
   return (
     <div className="item">
       <div className="tour_container">
@@ -77,7 +38,7 @@ const TourSliderItems = ({ status, id_tour, image, tour_price, tour_name }) => {
           <h3>
             <strong>{tour_name}</strong>
           </h3>
-          <div className="rating">{renderRating()}</div>
+          <div className="rating">{useRating(id_tour)}</div>
         </div>
       </div>
       {/* End box */}

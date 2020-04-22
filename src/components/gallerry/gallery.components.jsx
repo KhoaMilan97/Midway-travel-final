@@ -65,7 +65,7 @@ class Gallery extends React.Component {
   render() {
     return (
       <div id="Img_carousel">
-        <ImageGallery {...this.state.option} items={this.setImage() || []} />
+        <ImageGallery {...this.state.option} items={this.setImage()} />
       </div>
     );
   }

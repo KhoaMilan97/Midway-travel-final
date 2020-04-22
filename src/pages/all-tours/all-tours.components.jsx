@@ -32,8 +32,8 @@ const AllTours = ({ title, tours, typeTours }) => {
   return (
     <React.Fragment>
       <BannerHeader
-        title="All tours"
-        content="Ridiculus sociosqu cursus neque cursus curae ante scelerisque vehicula."
+        title="Tất cả tours"
+        content="Việt Nam nguyên chất 100% - Cảm nhận điều khác biệt"
       />
       <main>
         <div id="position">

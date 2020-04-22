@@ -1,6 +1,8 @@
 import React from "react";
 import { Link, withRouter } from "react-router-dom";
 
+import useRating from "../../util/useRating";
+
 import { linkImage } from "../../util/linkImage";
 
 import "./tour-items.styles.scss";
@@ -12,7 +14,7 @@ const TourItems = ({
   departure,
   hot,
   id_tour,
-  image
+  image,
 }) => (
   <div className="strip_all_tour_list wow fadeIn" data-wow-delay="0.1s">
     <div className="row">
@@ -32,6 +34,7 @@ const TourItems = ({
       </div>
       <div className="col-lg-6 col-md-6">
         <div className="tour_list_desc">
+          <div className="rating">{useRating(id_tour)}</div>
           <h3>
             <strong>{tour_name}</strong>
           </h3>
@@ -55,7 +58,7 @@ const TourItems = ({
             <sup>
               {tour_price.toLocaleString("it-IT", {
                 style: "currency",
-                currency: "VND"
+                currency: "VND",
               })}
             </sup>
             {/* <span className="normal_price_list">$99</span> */}

@@ -1,6 +1,5 @@
 import React from "react";
 import { connect } from "react-redux";
-// import { createStructuredSelector } from "reselect";
 import { Link, withRouter, Redirect } from "react-router-dom";
 import Pagination from "react-js-pagination";
 
@@ -48,7 +47,7 @@ class TypeTours extends React.Component {
       <React.Fragment>
         <BannerHeader
           title={typeTours[parseInt(match.params.id) - 1].name_type}
-          content="Ridiculus sociosqu cursus neque cursus curae ante scelerisque vehicula."
+          content="Việt Nam nguyên chất 100% - Cảm nhận điều khác biệt"
         />
         <main>
           <div id="position">

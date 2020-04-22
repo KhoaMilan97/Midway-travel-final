@@ -10,17 +10,15 @@ import SearchPages from "../../components/search-pages/search-pages.components";
 
 import { getTourStart } from "../../redux/tour/tour.action";
 import { selectTourLoading } from "../../redux/tour/tour.selector";
-import { getReviewStart } from "../../redux/review/review.action";
 
 const TopToursContainer = WithSpinner(TopTours);
 const PopularToursContainer = WithSpinner(PopularTours);
 
 class HomePages extends React.Component {
   componentDidMount() {
-    const { getTourStart, getReviewStart } = this.props;
+    const { getTourStart } = this.props;
     getTourStart();
     document.title = this.props.title;
-    getReviewStart();
   }
   render() {
     const { loading } = this.props;
@@ -191,7 +189,6 @@ const mapStateToProps = createStructuredSelector({
 
 const mapDispatchToProps = (dispatch) => ({
   getTourStart: () => dispatch(getTourStart()),
-  getReviewStart: () => dispatch(getReviewStart()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(HomePages);

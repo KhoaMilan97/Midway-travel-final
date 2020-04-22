@@ -48,7 +48,14 @@ const SearchPages = () => {
   const onDateChange = (date) => setSearchState({ ...searchState, date });
 
   const handleSearch = () => {
-    alert("Tìm kiếm");
+    if (
+      (departure != null) &
+      (destination != null) &
+      (date != null) &
+      (price != null)
+    ) {
+      alert("Search Now");
+    }
   };
 
   return (
@@ -69,6 +76,7 @@ const SearchPages = () => {
                         onChange={handleSelectChange("departure")}
                         options={optionsDeparture}
                         isClearable={isClearable}
+                        placeholder="Chọn nơi khởi hành..."
                       />
                     </div>
                   </div>
@@ -83,6 +91,7 @@ const SearchPages = () => {
                         onChange={handleSelectChange("destination")}
                         options={optionsDestination}
                         isClearable={isClearable}
+                        placeholder="Chọn điểm đến..."
                       />
                     </div>
                   </div>
@@ -113,6 +122,7 @@ const SearchPages = () => {
                         onChange={handleSelectChange("price")}
                         value={price}
                         isClearable={isClearable}
+                        placeholder="Chọn giá..."
                       />
                     </div>
                   </div>
