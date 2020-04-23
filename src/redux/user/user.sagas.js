@@ -2,7 +2,12 @@ import { takeLatest, put, all, call } from "redux-saga/effects";
 
 import API from "../../api/baseURL";
 
-import { auth, googleProvider } from "../../firebase/firebase.utils";
+import {
+  auth,
+  googleProvider,
+  createUserProfileDocumnet,
+  getCurrentUser,
+} from "../../firebase/firebase.utils";
 
 import {
   signInSuccess,
@@ -13,15 +18,29 @@ import {
   registerSuccess,
   recoverPasswordSuccess,
   recoverPasswordFailure,
+  cleanUp,
 } from "./user.action";
 
 import userTypes from "./user.types";
+
+export function* getSnapshotFromUserAuth(userAuth, additonalData) {
+  try {
+    const userRef = yield call(
+      createUserProfileDocumnet,
+      userAuth,
+      additonalData
+    );
+    const userSnapshot = yield userRef.get();
+    yield put(signInSuccess({ id: userSnapshot.id, ...userSnapshot.data() }));
+  } catch (err) {
+    yield put(signInFailure(err));
+  }
+}
 
 // GOOGLE LOGIN
 export function* googleSignIn() {
   try {
     const { user } = yield auth.signInWithPopup(googleProvider);
-    const { displayName, email } = user;
     //let token = yield auth.currentUser.getIdToken(/* forceRefresh */ true);
 
     // yield API.post("insert", {
@@ -33,9 +52,9 @@ export function* googleSignIn() {
     //   phone: user.phoneNumber
     // });
 
-    yield put(signInSuccess({ displayName, email }));
+    yield getSnapshotFromUserAuth(user);
   } catch (err) {
-    yield put(signInFailure(err.message));
+    yield put(signInFailure(err));
   }
 }
 
@@ -43,29 +62,14 @@ export function* onGoogleSignInStart() {
   yield takeLatest(userTypes.GOOGLE_SIGN_IN_START, googleSignIn);
 }
 
-// Facebook login
-// export function* facebookSignin() {
-//   try {
-//     const { user } = yield auth.signInWithPopup(facebookProvider);
-//     const { displayName, email, uid } = user;
-
-//     yield put(signInSuccess({ displayName, email, uid }));
-//   } catch (err) {
-//     yield put(signInFailure(err.message));
-//   }
-// }
-
-// export function* onFacebookLoginStart() {
-//   yield takeLatest(userTypes.FACEBOOK_SIGN_IN_START, facebookSignin);
-// }
-
 // SIGN OUT
 export function* signOut() {
   try {
     yield auth.signOut();
     yield put(signOutSuccess());
+    yield put(cleanUp());
   } catch (err) {
-    yield put(signOutFailure(err.message));
+    yield put(signOutFailure(err));
   }
 }
 
@@ -78,7 +82,8 @@ export function* register({
   payload: { email, password, displayName, phone },
 }) {
   try {
-    yield auth.createUserWithEmailAndPassword(email, password);
+    const { user } = yield auth.createUserWithEmailAndPassword(email, password);
+
     yield API.post("insert", {
       fullname: displayName,
       pass: password,
@@ -91,12 +96,18 @@ export function* register({
       if (user) {
         user.updateProfile({
           displayName: displayName,
+          phoneNumber: phone,
         });
       }
     });
-    yield put(registerSuccess({ email, displayName, phone, password }));
+    yield put(
+      registerSuccess({
+        user,
+        additonalData: { displayName, phoneNumber: phone },
+      })
+    );
   } catch (err) {
-    yield put(registerFailure(err.message));
+    yield put(registerFailure(err));
   }
 }
 
@@ -108,12 +119,10 @@ export function* onRegister() {
 export function* signIn({ payload: { email, password } }) {
   try {
     const { user } = yield auth.signInWithEmailAndPassword(email, password);
-    const displayName = user.displayName;
     // let token = yield auth.currentUser.getIdToken(/* forceRefresh */ true);
-
-    yield put(signInSuccess({ displayName, email }));
+    yield getSnapshotFromUserAuth(user);
   } catch (err) {
-    yield put(signInFailure(err.message));
+    yield put(signInFailure(err));
   }
 }
 
@@ -122,10 +131,8 @@ export function* onSignInWithEmail() {
 }
 
 /* SIGN IN AFTER SIGN UP */
-export function* signInAfterSignUp({ payload: { email, password } }) {
-  const { user } = yield auth.signInWithEmailAndPassword(email, password);
-  const displayName = user.displayName;
-  yield put(signInSuccess({ displayName, email }));
+export function* signInAfterSignUp({ payload: { user, additonalData } }) {
+  yield getSnapshotFromUserAuth(user, additonalData);
 }
 
 export function* onSignInaAfterSignUp() {
@@ -147,6 +154,22 @@ export function* onRecoverPassword() {
   yield takeLatest(userTypes.RECOVER_PASSOWRD_START, recoverPassword);
 }
 
+// CHECK USER SESSION
+export function* isUserAuthenticated() {
+  try {
+    const userAuth = yield getCurrentUser();
+    if (!userAuth) return;
+    yield getSnapshotFromUserAuth(userAuth);
+    yield;
+  } catch (err) {
+    yield put(signInFailure(err));
+  }
+}
+
+export function* onCheckUserSession() {
+  yield takeLatest(userTypes.CHECK_USER_SESSION, isUserAuthenticated);
+}
+
 // CALL ALL SAGAS
 export function* userSaga() {
   yield all([
@@ -156,5 +179,6 @@ export function* userSaga() {
     call(onRegister),
     call(onSignInWithEmail),
     call(onRecoverPassword),
+    call(onCheckUserSession),
   ]);
 }

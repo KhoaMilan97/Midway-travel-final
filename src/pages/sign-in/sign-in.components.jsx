@@ -58,7 +58,6 @@ export const validateInput = (type, checkingText) => {
 };
 
 class SignIn extends React.Component {
-  _isMounted = false;
   constructor(props) {
     super(props);
 
@@ -111,27 +110,25 @@ class SignIn extends React.Component {
     const { signInWithEmail } = this.props;
 
     signInWithEmail(email.value, password.value);
-
-    this.setState({
-      showMess: true,
-    });
-
-    setInterval(() => {
-      this.setState({
-        showMess: false,
-      });
-    }, 2000);
   };
 
   displayMessage = () => {
     const { error } = this.props;
-    const { showMess } = this.state;
-    if (showMess) {
-      return error !== false ? (
-        <div className="alert alert-danger">{error}</div>
-      ) : null;
+
+    // if (showMess) {
+    //   return error !== false ? (
+    //     <div className="alert alert-danger">{error}</div>
+    //   ) : null;
+    // }
+    if (error !== null) {
+      return <div className="alert alert-danger">{error}</div>;
     }
+    return error;
   };
+
+  // componentWillUnmount() {
+  //   clearInterval(this.timerID);
+  // }
 
   render() {
     const { googleSignInStart, loading } = this.props;

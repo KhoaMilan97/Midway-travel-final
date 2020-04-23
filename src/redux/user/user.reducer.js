@@ -12,6 +12,16 @@ const INITIAL_STATE = {
 
 const userReducer = (state = INITIAL_STATE, action) => {
   switch (action.type) {
+    case userTypes.CLEAN_UP:
+      return {
+        ...state,
+        loading: false,
+        error: null,
+        recoverPassword: {
+          loading: false,
+          error: null,
+        },
+      };
     case userTypes.SIGN_IN_WITH_EMAIL:
     case userTypes.GOOGLE_SIGN_IN_START:
     case userTypes.REGISTER_EMAIL_START:

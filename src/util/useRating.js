@@ -7,9 +7,13 @@ const useRating = (id_tour) => {
 
   useEffect(() => {
     async function fetchData() {
-      const response = await API.get(`review/${id_tour}`);
-      const data = response.data;
-      setReviewState(data);
+      try {
+        const response = await API.get(`review/${id_tour}`);
+        const data = response.data;
+        setReviewState(data);
+      } catch (err) {
+        console.log(err.message);
+      }
     }
     fetchData();
   }, [id_tour]);

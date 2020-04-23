@@ -16,6 +16,7 @@ let firebaseConfig = {
 firebase.initializeApp(firebaseConfig);
 
 export const auth = firebase.auth();
+export const firestore = firebase.firestore();
 
 export const googleProvider = new firebase.auth.GoogleAuthProvider();
 export const facebookProvider = new firebase.auth.FacebookAuthProvider();
@@ -24,10 +25,30 @@ googleProvider.setCustomParameters({
   prompt: "select_account",
 });
 
-// facebookProvider.setCustomParameters({
-//   prompt: "select_account",
-//   display: "popup"
-// });
+export const createUserProfileDocumnet = async (userAuth, additonalData) => {
+  if (!userAuth) return;
+
+  const userRef = firestore.doc(`user/${userAuth.uid}`);
+  const snapShot = await userRef.get();
+
+  if (!snapShot.exists) {
+    const { displayName, email, phoneNumber } = userAuth;
+    const createdAt = new Date();
+    try {
+      await userRef.set({
+        displayName,
+        email,
+        phoneNumber,
+        createdAt,
+        ...additonalData,
+      });
+    } catch (error) {
+      console.log("error creating user", error.message);
+    }
+  }
+
+  return userRef;
+};
 
 export const getCurrentUser = () => {
   return new Promise((resolve, reject) => {

@@ -23,4 +23,12 @@ header button.cmn-toggle-switch {
     opacity: 1;
     visibility: visible;
   }
+
+  #logo_home h1 a {
+    background-image: url(/img/logo_midway.png);
+  }
+
+  header.sticky #logo_home h1 a {
+    background-image: url(/img/logo_midway_sticky.png);
+  }
 }

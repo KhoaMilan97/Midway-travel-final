@@ -61,7 +61,7 @@ class SignUp extends React.Component {
   render() {
     const { user } = this.state;
     const { loading } = this.props;
-    console.log(loading);
+
     return (
       <React.Fragment>
         <main>

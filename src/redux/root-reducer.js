@@ -11,7 +11,7 @@ import reviewReducer from "./review/review.reducer";
 const persistConfig = {
   key: "root",
   storage,
-  whitelist: ["user", "cart"],
+  whitelist: ["cart"],
 };
 
 const rootReducer = combineReducers({

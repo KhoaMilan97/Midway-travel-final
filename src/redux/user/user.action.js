@@ -16,7 +16,7 @@ export const signInSuccess = (user) => ({
 
 export const signInFailure = (error) => ({
   type: userTypes.SIGN_IN_FAILURE,
-  payload: error,
+  payload: error.message,
 });
 
 /* Sign Out */
@@ -30,7 +30,7 @@ export const signOutSuccess = () => ({
 
 export const signOutFailure = (error) => ({
   type: userTypes.SIGN_OUT_FAILURE,
-  payload: error,
+  payload: error.message,
 });
 
 /* Register */
@@ -46,7 +46,7 @@ export const registerSuccess = (user) => ({
 
 export const registerFailure = (error) => ({
   type: userTypes.REGISTER_EMAIL_FAILURE,
-  payload: error,
+  payload: error.message,
 });
 
 /* Sign In */
@@ -69,4 +69,13 @@ export const recoverPasswordFailure = (err) => ({
 
 export const recoverPasswordSuccess = () => ({
   type: userTypes.RECOVER_PASSOWRD_SUCCESS,
+});
+
+/* Clean up message */
+export const cleanUp = () => ({
+  type: userTypes.CLEAN_UP,
+});
+
+export const checkUserSession = () => ({
+  type: userTypes.CHECK_USER_SESSION,
 });
