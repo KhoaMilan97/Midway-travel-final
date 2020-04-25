@@ -30,6 +30,9 @@ const ContactPages = lazy(() =>
 const ForgotPassword = lazy(() =>
   import("./pages/forgot-password/forget-password.components")
 );
+const SearchPages = lazy(() =>
+  import("./pages/search-pages/search-pages.components")
+);
 
 const App = ({ currentUser, checkUserSession }) => {
   useEffect(() => {
@@ -96,6 +99,11 @@ const App = ({ currentUser, checkUserSession }) => {
             exact
             path="/contact"
             render={() => <ContactPages title="Midway - Liên hệ" />}
+          />
+          <Route
+            exact
+            path="/search-result"
+            render={() => <SearchPages title="Midway - kết quả tìm kiếm" />}
           />
 
           <Route

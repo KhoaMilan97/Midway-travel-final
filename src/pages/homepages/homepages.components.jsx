@@ -6,7 +6,7 @@ import { Link } from "react-router-dom";
 import TopTours from "../../components/top-tour/top-tour.components";
 import PopularTours from "../../components/popular-tour/popular-tours.components";
 import WithSpinner from "../../components/with-spinner/with-spinner.components";
-import SearchPages from "../../components/search-pages/search-pages.components";
+import Search from "../../components/search/search.components";
 
 import { getTourStart } from "../../redux/tour/tour.action";
 import { selectTourLoading } from "../../redux/tour/tour.selector";
@@ -25,7 +25,7 @@ class HomePages extends React.Component {
     return (
       <div>
         <main>
-          <SearchPages />
+          <Search />
           <div className="white_bg">
             <div className="container margin_60">
               <div className="row small-gutters categories_grid">

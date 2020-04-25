@@ -1,13 +1,17 @@
 import React, { useState } from "react";
+import { connect } from "react-redux";
+import { withRouter } from "react-router-dom";
 import DatePicker from "react-datepicker";
 import Select from "react-select";
+
+import { searchTourStart } from "../../redux/search/search.action";
 
 import { dataDestination } from "./data-search";
 
 import "react-datepicker/dist/react-datepicker.css";
-import "./search-pages.styles.scss";
+import "./search.styles.scss";
 
-const SearchPages = () => {
+const SearchPages = ({ searchTourStart, history }) => {
   const [searchState, setSearchState] = useState({
     departure: null,
     destination: null,
@@ -23,8 +27,8 @@ const SearchPages = () => {
   const { isClearable } = selectState;
 
   const optionsDeparture = [
-    { value: "hanoi", label: "Hà Nội" },
-    { value: "hochiminh", label: "Hồ Chí Minh" },
+    { value: "Hà Nội", label: "Hà Nội" },
+    { value: "Hồ Chí Minh", label: "Hồ Chí Minh" },
   ];
 
   const optionsDestination = dataDestination.map((item) => {
@@ -32,13 +36,13 @@ const SearchPages = () => {
   });
 
   const optionsPrice = [
-    { value: "2", label: "Dưới 2tr" },
-    { value: "3", label: "Từ 2tr - 3tr" },
-    { value: "5", label: "Từ 3tr - 5tr" },
-    { value: "10", label: "Từ 5tr - 10tr" },
-    { value: "20", label: "Từ 10tr - 20tr" },
-    { value: "50", label: "Từ 20tr - 50tr" },
-    { value: "51", label: "Trên 50tr" },
+    { value: "1", label: "Dưới 2tr" },
+    { value: "2", label: "Từ 2tr - 3tr" },
+    { value: "3", label: "Từ 3tr - 5tr" },
+    { value: "4", label: "Từ 5tr - 10tr" },
+    { value: "5", label: "Từ 10tr - 20tr" },
+    { value: "6", label: "Từ 20tr - 50tr" },
+    { value: "7", label: "Trên 50tr" },
   ];
 
   const handleSelectChange = (name) => (value) => {
@@ -54,7 +58,25 @@ const SearchPages = () => {
       (date != null) &
       (price != null)
     ) {
-      alert("Search Now");
+      /* Convert date to mysql date can accpet */
+      function formatDate(date1) {
+        return (
+          date1.getFullYear() +
+          "-" +
+          (date1.getMonth() < 9 ? "0" : "") +
+          (date1.getMonth() + 1) +
+          "-" +
+          (date1.getDate() < 10 ? "0" : "") +
+          date1.getDate()
+        );
+      }
+      searchTourStart({
+        departure: departure.value,
+        destination: destination.value,
+        date: formatDate(date),
+        price: price.value,
+      });
+      history.push("/search-result");
     }
   };
 
@@ -142,4 +164,8 @@ const SearchPages = () => {
   );
 };
 
-export default SearchPages;
+const mapDispatchToProps = (dispatch) => ({
+  searchTourStart: (value) => dispatch(searchTourStart(value)),
+});
+
+export default withRouter(connect(null, mapDispatchToProps)(SearchPages));
