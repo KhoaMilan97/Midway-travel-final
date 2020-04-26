@@ -6,3 +6,7 @@ export const selectSearchResult = createSelector(
   [selectSearchTours],
   (search) => search.searchResult
 );
+
+export const selectSearchTour = createSelector([selectSearchResult], (tour) =>
+  Object.keys(tour).map((item) => tour[item])
+);

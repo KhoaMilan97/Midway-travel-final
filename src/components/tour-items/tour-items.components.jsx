@@ -14,7 +14,9 @@ const TourItems = ({
   departure,
   hot,
   id_tour,
+  date_of_departure,
   image,
+  destination,
 }) => (
   <div className="strip_all_tour_list wow fadeIn" data-wow-delay="0.1s">
     <div className="row">
@@ -45,8 +47,16 @@ const TourItems = ({
                 {tour_duration}
               </li>
               <li>
-                <strong>Khởi hành: </strong>
+                <strong>Khởi hành từ: </strong>
                 {departure}
+              </li>
+              <li>
+                <strong>Điểm đến: </strong>
+                {destination}
+              </li>
+              <li>
+                <strong>Ngày khởi hành: </strong>
+                {date_of_departure}
               </li>
             </ul>
           </div>

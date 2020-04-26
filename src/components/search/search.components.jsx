@@ -12,10 +12,13 @@ import "react-datepicker/dist/react-datepicker.css";
 import "./search.styles.scss";
 
 const SearchPages = ({ searchTourStart, history }) => {
+  let getSearch = localStorage.getItem("search");
+  getSearch = getSearch && JSON.parse(getSearch);
+
   const [searchState, setSearchState] = useState({
     departure: null,
     destination: null,
-    date: new Date(),
+    date: null,
     price: null,
   });
 
@@ -53,28 +56,44 @@ const SearchPages = ({ searchTourStart, history }) => {
 
   const handleSearch = () => {
     if (
-      (departure != null) &
-      (destination != null) &
-      (date != null) &
-      (price != null)
+      departure != null ||
+      destination != null ||
+      date != null ||
+      price != null
     ) {
       /* Convert date to mysql date can accpet */
       function formatDate(date1) {
-        return (
-          date1.getFullYear() +
-          "-" +
-          (date1.getMonth() < 9 ? "0" : "") +
-          (date1.getMonth() + 1) +
-          "-" +
-          (date1.getDate() < 10 ? "0" : "") +
-          date1.getDate()
-        );
+        if (date1 != null) {
+          return (
+            date1.getFullYear() +
+            "-" +
+            (date1.getMonth() < 9 ? "0" : "") +
+            (date1.getMonth() + 1) +
+            "-" +
+            (date1.getDate() < 10 ? "0" : "") +
+            date1.getDate()
+          );
+        }
+        return "";
       }
-      searchTourStart({
-        departure: departure.value,
-        destination: destination.value,
+      let departureValue = departure === null ? "" : departure.value;
+      let destinationValue = destination === null ? "" : destination.value;
+      let priceValue = price === null ? "" : price.value;
+
+      let searchSession = {
+        departure: departureValue,
+        destination: destinationValue,
         date: formatDate(date),
-        price: price.value,
+        price: priceValue,
+      };
+
+      localStorage.setItem("search", JSON.stringify(searchSession));
+
+      searchTourStart({
+        departure: departureValue,
+        destination: destinationValue,
+        date: formatDate(date),
+        price: priceValue,
       });
       history.push("/search-result");
     }
@@ -131,6 +150,7 @@ const SearchPages = ({ searchTourStart, history }) => {
                       minDate={new Date()}
                       onChange={onDateChange}
                       className="date-pick form-control"
+                      placeholderText="Chọn ngày đi..."
                     />
                   </div>
                 </div>

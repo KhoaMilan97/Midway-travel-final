@@ -3,11 +3,13 @@ import { connect } from "react-redux";
 import { Link, withRouter } from "react-router-dom";
 import Pagination from "react-js-pagination";
 
-import BannerHeader from "../../shared/banner-header.components";
+import Search from "../../components/search/search.components";
 import TourItems from "../../components/tour-items/tour-items.components";
 
 import { selectAllType } from "../../redux/type-tour/type-tour.selector";
-import { selectSearchResult } from "../../redux/search/search.selector";
+import { selectSearchTour } from "../../redux/search/search.selector";
+
+import "./search-pages.styles.scss";
 
 class SearchPages extends React.Component {
   constructor(props) {
@@ -31,6 +33,7 @@ class SearchPages extends React.Component {
   render() {
     const { typeTours, match, searchTours } = this.props;
     const { currentPage, toursPerPages } = this.state;
+
     // Get Current Tours
     const indexOfLastTours = currentPage * toursPerPages; // 1 * 5 = 5 //
     const indexOfFirstTours = indexOfLastTours - toursPerPages; // 5 - 5 = 0 //
@@ -38,8 +41,8 @@ class SearchPages extends React.Component {
 
     return (
       <React.Fragment>
-        <BannerHeader title="Tìm kiếm" content="" />
         <main>
+          <Search />
           <div id="position">
             <div className="container">
               <ul>
@@ -78,20 +81,12 @@ class SearchPages extends React.Component {
                     ))}
                   </ul>
                 </div>
-
-                <div className="box_style_2">
-                  <i className="icon_set_1_icon-57" />
-                  <h4>
-                    Cần <span>giúp đỡ?</span>
-                  </h4>
-                  <a href="tel://004542344599" className="phone">
-                    +84 985 007449
-                  </a>
-                  <small>Monday to Friday 9.00am - 7.30pm</small>
-                </div>
               </aside>
               {/*End aside */}
               <div className="col-lg-9">
+                {currentTours.length > 0 ? (
+                  <div className="alert alert-success">{`Có ${searchTours.length} tour được tìm thấy`}</div>
+                ) : null}
                 {currentTours.length > 0 ? (
                   currentTours.map((tour) => (
                     <TourItems key={tour.id_tour} {...tour} />
@@ -103,16 +98,19 @@ class SearchPages extends React.Component {
                 )}
 
                 <hr />
-                <Pagination
-                  activePage={currentPage}
-                  itemsCountPerPage={toursPerPages}
-                  totalItemsCount={searchTours.length}
-                  pageRangeDisplayed={toursPerPages}
-                  itemClass="page-item"
-                  linkClass="page-link"
-                  onChange={this.handlePageChange.bind(this)}
-                  innerClass="pagination justify-content-center"
-                />
+                {searchTours.length > 5 ? (
+                  <Pagination
+                    activePage={currentPage}
+                    itemsCountPerPage={toursPerPages}
+                    totalItemsCount={searchTours.length}
+                    pageRangeDisplayed={toursPerPages}
+                    itemClass="page-item"
+                    linkClass="page-link"
+                    onChange={this.handlePageChange.bind(this)}
+                    innerClass="pagination justify-content-center"
+                  />
+                ) : null}
+
                 {/* end pagination*/}
               </div>
               {/* End col lg-9 */}
@@ -128,7 +126,7 @@ class SearchPages extends React.Component {
 
 const mapStateToProps = (state) => ({
   typeTours: selectAllType(state),
-  searchTours: selectSearchResult(state),
+  searchTours: selectSearchTour(state),
 });
 
 export default connect(mapStateToProps)(withRouter(SearchPages));

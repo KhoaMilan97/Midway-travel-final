@@ -121,12 +121,7 @@ class Confirmation extends React.Component {
               <aside className="col-lg-4">
                 <div className="box_style_1">
                   <h3 className="inner">Thank you!</h3>
-                  <p>
-                    Nihil inimicus ex nam, in ipsum dignissim duo. Tale
-                    principes interpretaris vim ei, has posidonium definitiones
-                    ut. Duis harum fuisset ut his, duo an dolor epicuri
-                    appareat.
-                  </p>
+                  <p>Cảm ơn quý khách đã đặt tour tại Midway</p>
                 </div>
                 <div className="box_style_4">
                   <i className="icon_set_1_icon-89" />
