@@ -5,9 +5,13 @@ import Pagination from "react-js-pagination";
 
 import Search from "../../components/search/search.components";
 import TourItems from "../../components/tour-items/tour-items.components";
+import Spinner from "../../components/spinner/spinner.components";
 
 import { selectAllType } from "../../redux/type-tour/type-tour.selector";
-import { selectSearchTour } from "../../redux/search/search.selector";
+import {
+  selectSearchTour,
+  selectSearchLoading,
+} from "../../redux/search/search.selector";
 
 import "./search-pages.styles.scss";
 
@@ -31,7 +35,7 @@ class SearchPages extends React.Component {
   }
 
   render() {
-    const { typeTours, match, searchTours } = this.props;
+    const { typeTours, match, searchTours, loading } = this.props;
     const { currentPage, toursPerPages } = this.state;
 
     // Get Current Tours
@@ -65,7 +69,7 @@ class SearchPages extends React.Component {
                     <li>
                       <Link to="/tours">
                         <i className="icon_set_1_icon-51" />
-                        All tours
+                        Tất cả tours
                       </Link>
                     </li>
                     {typeTours.map((item) => (
@@ -83,37 +87,42 @@ class SearchPages extends React.Component {
                 </div>
               </aside>
               {/*End aside */}
-              <div className="col-lg-9">
-                {currentTours.length > 0 ? (
-                  <div className="alert alert-success">{`Có ${searchTours.length} tour được tìm thấy`}</div>
-                ) : null}
-                {currentTours.length > 0 ? (
-                  currentTours.map((tour) => (
-                    <TourItems key={tour.id_tour} {...tour} />
-                  ))
-                ) : (
-                  <div className="alert alert-danger text-center">
-                    Không có tour nào thỏa yêu cầu
-                  </div>
-                )}
+              {loading ? (
+                <div className="col-lg-9">
+                  <Spinner />
+                </div>
+              ) : (
+                <div className="col-lg-9">
+                  {currentTours.length > 0 ? (
+                    <div className="alert alert-success">{`Có ${searchTours.length} tour được tìm thấy`}</div>
+                  ) : null}
+                  {currentTours.length > 0 ? (
+                    currentTours.map((tour) => (
+                      <TourItems key={tour.id_tour} {...tour} />
+                    ))
+                  ) : (
+                    <div className="alert alert-danger text-center">
+                      Không có tour nào thỏa yêu cầu
+                    </div>
+                  )}
 
-                <hr />
-                {searchTours.length > 5 ? (
-                  <Pagination
-                    activePage={currentPage}
-                    itemsCountPerPage={toursPerPages}
-                    totalItemsCount={searchTours.length}
-                    pageRangeDisplayed={toursPerPages}
-                    itemClass="page-item"
-                    linkClass="page-link"
-                    onChange={this.handlePageChange.bind(this)}
-                    innerClass="pagination justify-content-center"
-                  />
-                ) : null}
+                  <hr />
+                  {searchTours.length > 5 ? (
+                    <Pagination
+                      activePage={currentPage}
+                      itemsCountPerPage={toursPerPages}
+                      totalItemsCount={searchTours.length}
+                      pageRangeDisplayed={toursPerPages}
+                      itemClass="page-item"
+                      linkClass="page-link"
+                      onChange={this.handlePageChange.bind(this)}
+                      innerClass="pagination justify-content-center"
+                    />
+                  ) : null}
 
-                {/* end pagination*/}
-              </div>
-              {/* End col lg-9 */}
+                  {/* end pagination*/}
+                </div>
+              )}
             </div>
             {/* End row */}
           </div>
@@ -127,6 +136,7 @@ class SearchPages extends React.Component {
 const mapStateToProps = (state) => ({
   typeTours: selectAllType(state),
   searchTours: selectSearchTour(state),
+  loading: selectSearchLoading(state),
 });
 
 export default connect(mapStateToProps)(withRouter(SearchPages));

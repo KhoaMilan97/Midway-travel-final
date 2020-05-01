@@ -234,12 +234,12 @@ class TourDetails extends React.Component {
               {/*End  single_tour_desc*/}
               <aside className="col-lg-4">
                 <div className="box_style_1 expose">
-                  <h3 className="inner">- Đạt Tour -</h3>
+                  <h3 className="inner">- Đặt Tour -</h3>
                   <div className="row">
                     <div className="col-sm-6">
                       <div className="form-group">
                         <label>
-                          <i className="icon-calendar-7" /> Chọn ngày đi
+                          <i className="icon-calendar-7" /> Ngày đi
                         </label>
                         <DatePicker
                           selected={this.state.date}
@@ -252,7 +252,7 @@ class TourDetails extends React.Component {
                     <div className="col-sm-6">
                       <div className="form-group">
                         <label>
-                          <i className=" icon-clock" /> Chọn giờ đi
+                          <i className=" icon-clock" /> Giờ đi
                         </label>
                         <DatePicker
                           selected={this.state.time}
@@ -354,16 +354,6 @@ class TourDetails extends React.Component {
                   </button>
                 </div>
                 {/*/box_style_1 */}
-                <div className="box_style_4">
-                  <i className="icon_set_1_icon-90" />
-                  <h4>
-                    <span>Book</span> by phone
-                  </h4>
-                  <a href="tel://004542344599" className="phone">
-                    +84 985 007 449
-                  </a>
-                  <small>Monday to Friday 9.00am - 7.30pm</small>
-                </div>
               </aside>
             </div>
             {/*End row */}

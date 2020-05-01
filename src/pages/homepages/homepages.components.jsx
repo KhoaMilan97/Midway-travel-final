@@ -37,8 +37,8 @@ class HomePages extends React.Component {
                       className="img-fluid"
                     />
                     <div className="wrapper">
-                      <h2>All tours</h2>
-                      <p>1150 Locations</p>
+                      <h2>Tất cả Tour</h2>
+                      {/* <p>1150 Locations</p> */}
                     </div>
                   </Link>
                 </div>
@@ -53,7 +53,7 @@ class HomePages extends React.Component {
                         />
                         <div className="wrapper">
                           <h2>Tour miền bắc</h2>
-                          <p>800 Locations</p>
+                          {/* <p>800 Locations</p> */}
                         </div>
                       </Link>
                     </div>
@@ -66,7 +66,7 @@ class HomePages extends React.Component {
                         />
                         <div className="wrapper">
                           <h2>Tour miền trung</h2>
-                          <p>650 Locations</p>
+                          {/* <p>650 Locations</p> */}
                         </div>
                       </Link>
                     </div>
@@ -79,7 +79,7 @@ class HomePages extends React.Component {
                         />
                         <div className="wrapper">
                           <h2>Tour miền nam</h2>
-                          <p>1132 Locations</p>
+                          {/* <p>1132 Locations</p> */}
                         </div>
                       </Link>
                     </div>

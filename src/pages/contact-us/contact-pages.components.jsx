@@ -13,10 +13,7 @@ class ContactPages extends React.Component {
   render() {
     return (
       <React.Fragment>
-        <BannerHeader
-          title="Liên hệ"
-          content="Ridiculus sociosqu cursus neque cursus curae ante scelerisque vehicula."
-        />
+        <BannerHeader title="Liên hệ" />
         <main>
           <div id="position">
             <div className="container">

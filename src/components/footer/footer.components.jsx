@@ -17,18 +17,16 @@ const Footer = () => (
             </a>
           </div>
           <div className="col-md-2">
-            <h3>Liên kết hữu ích</h3>
+            <h3>Liên kết</h3>
             <ul>
               <li>
                 <Link to="/about">Giới thiệu</Link>
               </li>
 
               <li>
-                <Link to="/sign-in">Đăng nhập</Link>
+                <Link to="/tour">Tất cả Tour</Link>
               </li>
-              <li>
-                <Link to="/sign-up">Đăng kí</Link>
-              </li>
+
               <li>
                 <Link to="/contact">Liên hệ</Link>
               </li>

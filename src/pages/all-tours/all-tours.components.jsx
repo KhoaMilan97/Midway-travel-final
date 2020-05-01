@@ -55,7 +55,7 @@ const AllTours = ({ title, tours, typeTours }) => {
                   <li>
                     <Link to="/tours">
                       <i className="icon_set_1_icon-51" />
-                      All tours
+                      Tất cả tour
                     </Link>
                   </li>
                   {typeTours.map((item) => (
@@ -67,17 +67,6 @@ const AllTours = ({ title, tours, typeTours }) => {
                     </li>
                   ))}
                 </ul>
-              </div>
-
-              <div className="box_style_2">
-                <i className="icon_set_1_icon-57" />
-                <h4>
-                  Need <span>Help?</span>
-                </h4>
-                <a href="tel://004542344599" className="phone">
-                  +45 423 445 99
-                </a>
-                <small>Monday to Friday 9.00am - 7.30pm</small>
               </div>
             </aside>
             {/*End aside */}

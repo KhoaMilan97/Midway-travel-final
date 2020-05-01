@@ -37,6 +37,7 @@ class Header extends React.Component {
 
   render() {
     const { signOutStart, currentUser, types } = this.props;
+
     let className = ["main-menu"];
     let classLayer = ["layer"];
     let classButton = [

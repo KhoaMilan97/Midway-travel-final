@@ -13,21 +13,28 @@ import "./search.styles.scss";
 
 const SearchPages = ({ searchTourStart, history }) => {
   let getSearch = localStorage.getItem("search");
-  getSearch = getSearch && JSON.parse(getSearch);
+  let datelocal;
+  let dataSearch;
+  if (getSearch) {
+    dataSearch = JSON.parse(getSearch);
+    datelocal = dataSearch.date ? new Date(dataSearch.date) : null;
+  } else {
+    dataSearch = {
+      departure: null,
+      destination: null,
+      price: null,
+    };
+    datelocal = null;
+  }
 
   const [searchState, setSearchState] = useState({
-    departure: null,
-    destination: null,
-    date: null,
-    price: null,
-  });
-
-  const [selectState] = useState({
-    isClearable: true,
+    departure: dataSearch.departure,
+    destination: dataSearch.destination,
+    date: datelocal,
+    price: dataSearch.price,
   });
 
   const { departure, destination, date, price } = searchState;
-  const { isClearable } = selectState;
 
   const optionsDeparture = [
     { value: "Hà Nội", label: "Hà Nội" },
@@ -81,10 +88,10 @@ const SearchPages = ({ searchTourStart, history }) => {
       let priceValue = price === null ? "" : price.value;
 
       let searchSession = {
-        departure: departureValue,
-        destination: destinationValue,
-        date: formatDate(date),
-        price: priceValue,
+        departure: departure,
+        destination: destination,
+        price: price,
+        date: date,
       };
 
       localStorage.setItem("search", JSON.stringify(searchSession));
@@ -116,7 +123,7 @@ const SearchPages = ({ searchTourStart, history }) => {
                         value={departure}
                         onChange={handleSelectChange("departure")}
                         options={optionsDeparture}
-                        isClearable={isClearable}
+                        isClearable="true"
                         placeholder="Chọn nơi khởi hành..."
                       />
                     </div>
@@ -131,7 +138,7 @@ const SearchPages = ({ searchTourStart, history }) => {
                         value={destination}
                         onChange={handleSelectChange("destination")}
                         options={optionsDestination}
-                        isClearable={isClearable}
+                        isClearable="true"
                         placeholder="Chọn điểm đến..."
                       />
                     </div>
@@ -151,6 +158,7 @@ const SearchPages = ({ searchTourStart, history }) => {
                       onChange={onDateChange}
                       className="date-pick form-control"
                       placeholderText="Chọn ngày đi..."
+                      isClearable
                     />
                   </div>
                 </div>
@@ -163,7 +171,7 @@ const SearchPages = ({ searchTourStart, history }) => {
                         options={optionsPrice}
                         onChange={handleSelectChange("price")}
                         value={price}
-                        isClearable={isClearable}
+                        isClearable="true"
                         placeholder="Chọn giá..."
                       />
                     </div>
