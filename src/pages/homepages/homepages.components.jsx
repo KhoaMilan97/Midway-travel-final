@@ -122,11 +122,11 @@ class HomePages extends React.Component {
             <div className="container margin_60">
               <div className="main_title">
                 <h2>
-                  Plan <span>Your Tour</span> Easly
+                  <span>Lên kế hoạch</span> chuyến đi dễ dàng
                 </h2>
                 <p>
-                  Quisque at tortor a libero posuere laoreet vitae sed arcu.
-                  Curabitur consequat.
+                  midwaytravel sẽ giúp bạn không bỏ lỡ bất cứ điều tuyệt vời nào
+                  trong chuyến du lịch của mình.
                 </p>
               </div>
               <div className="row feature_home_2">
@@ -137,11 +137,11 @@ class HomePages extends React.Component {
                     width={75}
                     height={75}
                   />
-                  <h3>Tour free &#38; Easy</h3>
-                  <p>
+                  <h3>An toàn &#38; tiện nghi</h3>
+                  {/* <p>
                     Chuyên tour free &#38; easy với lịch trình đa dạng, dịch vụ
                     chất lượng, giá ưu đãi
-                  </p>
+                  </p> */}
                 </div>
                 <div className="col-md-4 text-center">
                   <img
@@ -150,11 +150,11 @@ class HomePages extends React.Component {
                     width={75}
                     height={75}
                   />
-                  <h3>Land tour &#38; dịch vụ</h3>
-                  <p>
+                  <h3>Đảm bảo &#38; dịch vụ</h3>
+                  {/* <p>
                     Chuyên tour trọn gói tại điểm đến - Vé tham quan &#38; show.
                     Tour ngắn ngày - Hoạt động trải nghiệm...
-                  </p>
+                  </p> */}
                 </div>
                 <div className="col-md-4 text-center">
                   <img
@@ -164,11 +164,31 @@ class HomePages extends React.Component {
                     height={75}
                   />
                   <h3>Chất lượng - giá cạnh tranh</h3>
-                  <p>
+                  {/* <p>
                     Chúng tôi luôn nỗ lực tối ưu nhất các sản phẩm của mình,
                     chính sách hoàn tiền néu giá chưa phải tốt nhất
-                  </p>
+                  </p> */}
                 </div>
+              </div>
+              <div className="banner_2">
+                <div
+                  className="wrapper d-flex align-items-center opacity-mask"
+                  data-opacity-mask="rgba(0, 0, 0, 0.3)"
+                  style={{ backgroundColor: "rgba(0, 0, 0, 0.3)" }}
+                >
+                  <div>
+                    <h3>
+                      Chuyến đi của bạn,
+                      <br />
+                      Trải nghiệm của bạn
+                    </h3>
+                    {/* <p>Activities and accommodations</p> */}
+                    {/* <a href="all_tours_list.html" className="btn_1">
+                      Read more
+                    </a> */}
+                  </div>
+                </div>
+                {/* /wrapper */}
               </div>
             </div>
             {/* End container */}

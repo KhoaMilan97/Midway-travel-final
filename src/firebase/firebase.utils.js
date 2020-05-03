@@ -15,16 +15,6 @@ let firebaseConfig = {
 // Initialize Firebase
 firebase.initializeApp(firebaseConfig);
 
-export const auth = firebase.auth();
-export const firestore = firebase.firestore();
-
-export const googleProvider = new firebase.auth.GoogleAuthProvider();
-export const facebookProvider = new firebase.auth.FacebookAuthProvider();
-
-googleProvider.setCustomParameters({
-  prompt: "select_account",
-});
-
 export const createUserProfileDocumnet = async (userAuth, additonalData) => {
   if (!userAuth) return;
 
@@ -58,3 +48,15 @@ export const getCurrentUser = () => {
     }, reject);
   });
 };
+
+export const auth = firebase.auth();
+export const firestore = firebase.firestore();
+
+export const googleProvider = new firebase.auth.GoogleAuthProvider();
+export const facebookProvider = new firebase.auth.FacebookAuthProvider();
+
+googleProvider.setCustomParameters({
+  prompt: "select_account",
+});
+
+export default firebase;

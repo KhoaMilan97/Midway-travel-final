@@ -104,19 +104,19 @@ const About = ({ title }) => {
                 <ul>
                   <li>
                     <i className="icon_set_1_icon-59" />
-                    Breakfast
+                    Bữa sáng
                   </li>
                   <li>
                     <i className="icon_set_1_icon-8" />
-                    Dinner
+                    Bữa tối
                   </li>
                   <li>
                     <i className="icon_set_1_icon-32" />
-                    Photography
+                    Nhiếp ảnh
                   </li>
                   <li>
                     <i className="icon_set_1_icon-50" />
-                    Shopping
+                    Mua sám
                   </li>
                 </ul>
               </div>
@@ -131,19 +131,19 @@ const About = ({ title }) => {
                 <ul>
                   <li>
                     <i className="icon_set_1_icon-98" />
-                    Audio guide
+                    Hướng dân
                   </li>
                   <li>
                     <i className="icon_set_1_icon-27" />
-                    Parking
+                    Bai đổ xe
                   </li>
                   <li>
                     <i className="icon_set_1_icon-36" />
-                    Exchange
+                    Đổi
                   </li>
                   <li>
                     <i className="icon_set_1_icon-63" />
-                    Mobile
+                    Di động
                   </li>
                 </ul>
               </div>

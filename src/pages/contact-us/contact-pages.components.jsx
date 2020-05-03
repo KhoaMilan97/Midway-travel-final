@@ -10,6 +10,13 @@ class ContactPages extends React.Component {
     document.title = this.props.title;
   }
 
+  handleSubmit = (e) => {
+    e.preventDefault();
+    alert(
+      "Chức năng đang được xây dựng và hoàn thành trong thời gian sớm nhất"
+    );
+  };
+
   render() {
     return (
       <React.Fragment>
@@ -34,21 +41,17 @@ class ContactPages extends React.Component {
                     <strong>
                       <i className="icon-pencil" />
                     </strong>
-                    Điền vào mẫu bên dưới
+                    Vui long điền vào mẫu bên dưới
                   </h3>
                   <p>Chúng tôi sẽ phản hồi bạn sớm nhất có thể.</p>
                 </div>
                 <div className="step">
                   <div id="message-contact" />
-                  <form
-                    method="post"
-                    action="assets/contact.php"
-                    id="contactform"
-                  >
+                  <form id="contactform" onSubmit={this.handleSubmit}>
                     <div className="row">
                       <div className="col-sm-6">
                         <div className="form-group">
-                          <label>Họ và chữ lót</label>
+                          <label>Họ</label>
                           <input
                             type="text"
                             className="form-control"

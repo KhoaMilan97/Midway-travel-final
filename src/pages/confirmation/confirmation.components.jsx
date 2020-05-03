@@ -1,6 +1,8 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
+import Summary from "../../components/summary/summary.components";
+
 class Confirmation extends React.Component {
   componentDidMount() {
     document.title = this.props.title;
@@ -11,26 +13,24 @@ class Confirmation extends React.Component {
       <React.Fragment>
         <section id="hero_2">
           <div className="intro_title">
-            <h1>Place your order</h1>
+            <h1>Đặt hàng</h1>
             <div className="bs-wizard row">
               <div className="col-4 bs-wizard-step complete">
-                <div className="text-center bs-wizard-stepnum">Your cart</div>
+                <div className="text-center bs-wizard-stepnum">Giỏ hàng</div>
                 <div className="progress">
                   <div className="progress-bar" />
                 </div>
                 <Link to="/cart" className="bs-wizard-dot" />
               </div>
               <div className="col-4 bs-wizard-step complete">
-                <div className="text-center bs-wizard-stepnum">
-                  Your details
-                </div>
+                <div className="text-center bs-wizard-stepnum">Chi tiết</div>
                 <div className="progress">
                   <div className="progress-bar" />
                 </div>
                 <Link to="/" className="bs-wizard-dot" />
               </div>
               <div className="col-4 bs-wizard-step complete">
-                <div className="text-center bs-wizard-stepnum">Finish!</div>
+                <div className="text-center bs-wizard-stepnum">Hoàn thành!</div>
                 <div className="progress">
                   <div className="progress-bar" />
                 </div>
@@ -61,58 +61,30 @@ class Confirmation extends React.Component {
                     <strong>
                       <i className="icon-ok" />
                     </strong>
-                    Thank you!
+                    Cảm ơn bạn!
                   </h3>
-                  <p>Mussum ipsum cacilds, vidis litro abertis.</p>
                 </div>
                 <div className="step">
                   <p>
-                    Lorem ipsum dolor sit amet, nostrud nominati vis ex, essent
-                    conceptam eam ad. Cu etiam comprehensam nec. Cibo delicata
-                    mei an, eum porro legere no. Te usu decore omnium, quem
-                    brute vis at, ius esse officiis legendos cu. Dicunt
-                    voluptatum at cum. Vel et facete equidem deterruisset, mei
-                    graeco cetero labores et. Accusamus inciderint eu mea.
+                    Cảm ơn bạn đã mua các sản phẩm của tôi. Bộ phận hỗ trợ khách
+                    hàng sẽ liên hệ với bạn trong vòng 24h để hoàn tất đơn hàng.
+                    Chúc bạn có nhiều trải nghiệm mới trong chuyến đi và mong
+                    rằng đây là một trong những chuyến đi tuyệt vời, trong hành
+                    trình khám phá riêng của bạn. Trân trọng.
                   </p>
                 </div>
                 {/*End step */}
                 <div className="form_title">
-                  <h3>
+                  {/* <h3>
                     <strong>
                       <i className="icon-tag-1" />
                     </strong>
-                    Booking summary
-                  </h3>
-                  <p>Mussum ipsum cacilds, vidis litro abertis.</p>
+                    Thông tin đặt hàng
+                  </h3> */}
                 </div>
                 <div className="step">
                   <table className="table table-striped confirm">
-                    <tbody>
-                      <tr>
-                        <td>
-                          <strong>Louvre musuem tickets</strong>
-                        </td>
-                        <td>2x</td>
-                      </tr>
-                      <tr>
-                        <td>
-                          <strong>Date</strong>
-                        </td>
-                        <td>25 Febraury 2015</td>
-                      </tr>
-                      <tr>
-                        <td>
-                          <strong>To</strong>
-                        </td>
-                        <td>Jhon Doe</td>
-                      </tr>
-                      <tr>
-                        <td>
-                          <strong>Payment type</strong>
-                        </td>
-                        <td>Credit card</td>
-                      </tr>
-                    </tbody>
+                    <Summary title="Tổng kết đơn hàng" />
                   </table>
                 </div>
                 {/*End step */}
@@ -120,18 +92,18 @@ class Confirmation extends React.Component {
               {/*End col */}
               <aside className="col-lg-4">
                 <div className="box_style_1">
-                  <h3 className="inner">Thank you!</h3>
+                  <h3 className="inner">Cảm ơn!</h3>
                   <p>Cảm ơn quý khách đã đặt tour tại Midway</p>
                 </div>
                 <div className="box_style_4">
                   <i className="icon_set_1_icon-89" />
                   <h4>
-                    Have <span>questions?</span>
+                    Cần <span>hỗ trợ?</span>
                   </h4>
                   <a href="tel://004542344599" className="phone">
-                    +45 423 445 99
+                    +84985 007 449
                   </a>
-                  <small>Monday to Friday 9.00am - 7.30pm</small>
+                  <small>Thứ 2 - Thứ 6 9:00 - 17:30</small>
                 </div>
               </aside>
             </div>

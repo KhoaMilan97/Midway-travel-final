@@ -4,20 +4,20 @@ import StripeCheckout from "react-stripe-checkout";
 const StripeButton = ({ price }) => {
   const public_key = "pk_test_NUAz3WQqlwYZvRgx8njLklff00fe6YU3Ae";
 
-  const onToken = token => {
+  const onToken = (token) => {
     console.log(token);
     alert("Successfull");
   };
 
   return (
     <StripeCheckout
-      label="Pay now"
+      label="Thanh toán ngay"
       name="Midway travel"
       shippingAddress
       billingAddress
       description={`Your total is ${price.toLocaleString("it-IT", {
         style: "currency",
-        currency: "VND"
+        currency: "VND",
       })}`}
       panelLabel="Pay now"
       token={onToken}

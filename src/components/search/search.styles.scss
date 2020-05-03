@@ -23,3 +23,22 @@
 #search_container {
   background: #4d536d url(/img/slides/slide_home_6.jpg) no-repeat center top !important;
 }
+
+.react-datepicker__close-icon::after {
+  cursor: pointer;
+  background-color: transparent;
+  color: #ccc;
+  border-radius: 50%;
+  height: 16px;
+  width: 16px;
+  padding: 2px;
+  font-size: 30px;
+  line-height: 1;
+  text-align: center;
+  display: table-cell;
+  vertical-align: middle;
+  content: "\00d7";
+}
+.react-datepicker__close-icon:hover::after {
+  color: #999999;
+}

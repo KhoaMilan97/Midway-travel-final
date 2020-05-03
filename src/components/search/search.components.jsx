@@ -112,7 +112,7 @@ const SearchPages = ({ searchTourStart, history }) => {
         <div id="search">
           <div className="tab-content">
             <div className="tab-pane active show" id="tours">
-              <h3>Tìm kiếm Tours Việt Nam</h3>
+              <h3>Chọn tour của bạn</h3>
               <div className="row">
                 <div className="col-md-6">
                   <div className="form-group">
@@ -182,7 +182,7 @@ const SearchPages = ({ searchTourStart, history }) => {
               <hr />
               <button className="btn_1 green" onClick={handleSearch}>
                 <i className="icon-search" />
-                Tìm kiếm
+                Chọn
               </button>
             </div>
           </div>

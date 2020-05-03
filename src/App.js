@@ -1,4 +1,4 @@
-import React, { lazy, Suspense, useEffect } from "react";
+import React, { lazy, Suspense, useEffect, useState } from "react";
 import { Route, Switch, Redirect } from "react-router-dom";
 import { connect } from "react-redux";
 import { createStructuredSelector } from "reselect";
@@ -11,6 +11,7 @@ import Footer from "./components/footer/footer.components";
 import Spinner from "./components/spinner/spinner.components";
 import ScrollToTop from "./util/scrollToTop";
 import Scroll from "./components/scrol/scroll.components";
+import { auth } from "./firebase/firebase.utils";
 
 const HomePages = lazy(() => import("./pages/homepages/homepages.components"));
 const About = lazy(() => import("./pages/about/about.component"));
@@ -35,13 +36,25 @@ const SearchPages = lazy(() =>
 );
 
 const App = ({ currentUser, checkUserSession }) => {
+  const [user, setUser] = useState(null);
+
+  useEffect(() => {
+    auth.onAuthStateChanged((userAuth) => {
+      if (userAuth) {
+        setUser(userAuth);
+      } else {
+        setUser(null);
+      }
+    });
+  }, []);
+
   useEffect(() => {
     checkUserSession();
   }, [checkUserSession]);
 
   return (
     <div className="App">
-      <Header currentUser={currentUser} />
+      <Header currentUser={user} />
       <Suspense fallback={<Spinner />}>
         <ScrollToTop />
         <Switch>
@@ -76,13 +89,7 @@ const App = ({ currentUser, checkUserSession }) => {
           <Route
             exact
             path="/checkout"
-            render={() =>
-              !currentUser ? (
-                <Redirect to="/sign-in" />
-              ) : (
-                <CheckOutPages title="Midway - Thanh toán" />
-              )
-            }
+            render={() => <CheckOutPages title="Midway - Thanh toán" />}
           />
           <Route path="/tours" render={(props) => <TourPages {...props} />} />
           <Route

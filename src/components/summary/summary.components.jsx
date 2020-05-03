@@ -6,10 +6,10 @@ import { selectCartItems } from "../../redux/cart/cart.selector";
 
 import "./summary.styles.scss";
 
-const Summary = ({ cartItems }) => {
+const Summary = ({ cartItems, title }) => {
   return (
     <div className="box_style_1">
-      <h3 className="inner">- Tóm tắt đơn hàng -</h3>
+      <h3 className="inner">- {title} -</h3>
       <table className="table table_summary">
         <tbody>
           <tr>
